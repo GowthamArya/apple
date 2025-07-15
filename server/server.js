@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
-const path = require('path');
+//const path = require('path');
 
 const app = express();
 
@@ -33,13 +33,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve static files from React build
-app.use(express.static(path.join(__dirname, '../client/build')));
-
-// Fallback for React Router
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
 
 // === Start Server ===
 app.listen(PORT, () => {
