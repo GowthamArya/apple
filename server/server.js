@@ -37,15 +37,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// Wildcard: Send React app for all other routes
-app.get('/*', (req, res) => {
-  res.sendFile(indexPath, err => {
-    if (err) {
-      console.error("❌ Error serving React:", err);
-      res.status(500).send("Internal Server Error");
-    }
+
+try{
+  // Wildcard: Send React app for all other routes
+  app.get('/*', (req, res) => { 
+    res.sendFile(indexPath, err => {
+      if (err) {
+        console.error("❌ Error serving React:", err);
+        res.status(500).send("Internal Server Error");
+      }
+    });
   });
-});
+} catch (err) {
+  console.error("❌ Error registering React fallback route:", err);
+}
 
 // === Start Server ===
 app.listen(PORT, () => {
